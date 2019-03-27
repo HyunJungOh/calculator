@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="stylesheet" type="text/css" href="./style.css"/>
+      <!-- <link rel="stylesheet" href="./main.scss"> -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+      <!-- <link rel="stylesheet" href="https://code.jquery.com/jquery-ui.min.css"> -->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+
+  </head>
+  <body>
+      <section class="head">
+          <div class="title-wrapper"><h1 class="title">精算ツール</h1></div>
+          <button id="btn" class="start_btn" type="button" name="button">スタート</button>
+    </section>
+      <section>
+          <div class="list">
+              <div class="item">
+                  <select class="category">
+                      <option value="-">-</option> 
+                      <option value="tel">電話</option>
+                      <option value="email">メール</option>
+                      <option value="deal">成約</option>
+                  </select>
+                    <input type="radio" 
+                           name="length" 
+                           id="low_10" 
+                           value="low_10" 
+                           checked/>
+                        <label for="low_10">10分▼</label>
+                    <input type="radio" 
+                           name="length" 
+                           id="high_10" 
+                           value="high_10" />
+                        <label for="high_10">10分▲</label>
+                    <input type="num" class="num" placeholder="件数" value=""/>件
+                    <span class="net_price"></span>円
+                    <span class="buttons">
+                            <button value=""class="plus_btn"></button>
+                            <button value=""class="delete_btn"></button>
+                    </span>
+                </div>
+              <div class="item">
+                    <select class="category">
+                        <option value="-">-</option> 
+                        <option value="tel">電話</option>
+                        <option value="email">メール</option>
+                        <option value="deal">成約</option>
+                    </select>
+                    <input type="radio" 
+                           name="mail_kind" 
+                           id="new_mail" 
+                           value="new_mail" 
+                           checked/>
+                        <label for="new_mail">新規</label>
+                    <input type="radio" name="mail_kind" id="format_mail" value="format_mail" />
+                        <label for="format_mail">既定</label>
+                    <input type="num" class="num" placeholder="文字数" value=""/>字
+                    <span class="net_price"></span>円
+                    <span class="buttons">
+                            <button class="plus_btn"></button>
+                            <button class="delete_btn"></button>
+                    </span>
+               </div>
+               <div class="item">
+                    <select class="category">
+                        <option value="-">-</option> 
+                        <option value="tel">電話</option>
+                        <option value="email">メール</option>
+                        <option value="deal">成約</option>
+                    </select>
+                    <input type="radio" 
+                           name="mail_kind" 
+                           id="new_mail" 
+                           value="new_mail" 
+                           checked/>
+                        <label for="new_mail">新規</label>
+                    <input type="radio" name="mail_kind" id="format_mail" value="format_mail" />
+                        <label for="format_mail">既定</label>
+                    <input type="num" class="num" placeholder="件数" value=""/>件
+                    <span class="net_price"></span>円
+                    <span class="buttons">
+                            <button value=""class="plus_btn"></button>
+                            <button value=""class="delete_btn"></button>
+                    </span>
+               </div>
+               <div class="item">
+                    <select class="category">
+                        <option value="-">-</option> 
+                        <option value="tel">電話</option>
+                        <option value="email">メール</option>
+                        <option value="deal">成約</option>
+                    </select>
+                    <input type="radio" 
+                           name="mail_kind" 
+                           id="new_mail" 
+                           value="new_mail" 
+                           checked/>
+                    <input type="num" class="num" placeholder="件数" value=""/>件
+                    <span class="net_price"></span>円
+                    <span class="buttons">
+                            <button value=""class="plus_btn"></button>
+                            <button value=""class="delete_btn"></button>
+                    </span>
+               </div>          
+            </div>
+      </section>
+      <section>
+          <div class="total">
+                <h1> 円</h1>
+          </div>
+      </section>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript" src="./sample.js"></script>
+
+</html>
