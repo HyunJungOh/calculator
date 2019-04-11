@@ -6,22 +6,14 @@ var options = {
     deal  : '成約'
 };
 var telOptions = {
-    under10 : '10分▼',
-    up10    : '10分▲'
+    under10: 500,
+    up10: 1000
 };
 var mailOptions = {
-    new     : '新規',
-    format  : '既定'
+    new     : 10,
+    format  : 250
 };
 
-var Price =[
-
-{
-    unitPrice :'0',
-    qty:'1',
-//    netPrice: unitPrice * qty,
-},
-];
 
 var totalPrice = 0;
 //add first list item
@@ -39,20 +31,10 @@ $(document).on("click", ".delete-btn",function(){
     });
 
 
-//add Radio options
-$(document).on("change", ".category",function(){
-    var selectedOption = $(this).val();
-    var appendDiv = $(this).parent('div').parent('div');
-//console.log(this);
-    if (selectedOption !== 'none' && selectedOption === 'tel'){
-        makeElement(telOptions, appendDiv, 'length');
-    } else if (selectedOption !== 'none' && selectedOption === 'email'){
-        makeElement(mailOptions,appendDiv, 'mail_kind');
-        } else if (selectedOption !== 'none' && selectedOption === 'deal'){
-        makeElement('',appendDiv, 'num');
-        }
-})
-
+var nameIdCnt = 0;
+var name;
+var cnt;
+//add select options
 function makeSelect(){
     var $item   = $('<div>').addClass('item')
     var $col1 = $('<div>').addClass('col1');
@@ -65,7 +47,28 @@ function makeSelect(){
         $option = $('<option>').val(key).text(val)
         $select.append($option)
     })
+    
 }
+
+//add Radio options
+$(document).on("change", ".category",function(){
+    var selectedOption = $(this).val();
+    var appendDiv = $(this).parent('div').parent('div');
+    cnt       = $(".col1").length;
+
+    if (selectedOption !== 'none' && selectedOption === 'tel'){
+        name = 'length' + cnt; 
+        makeElement(telOptions, appendDiv, name);
+    } else if (selectedOption !== 'none' && selectedOption === 'email'){
+        name = 'mail_kind' + cnt;
+        makeElement(mailOptions,appendDiv, name);
+        } else if (selectedOption !== 'none' && selectedOption === 'deal'){
+        name = 'deal_num' + cnt; 
+        makeElement('',appendDiv, 'num');
+        }
+    })
+
+
 
 function makeElement(optionObj, eventPlace, name){
     var $container= $('<div>').addClass('container');
@@ -92,34 +95,79 @@ function makeElement(optionObj, eventPlace, name){
     $col5.appendTo($container);
 
     if (optionObj){
-        $.each(optionObj, function(key, val){
-        var $label = $('<label>').text(val);
-        $col2.appendTo($container);
-        $label.appendTo($col2);
-        $telOption = $('<input type="radio">').val(key).attr('name', name)
-        $label.prepend($telOption)
+        $.each(optionObj, function(key){
+            var msg;
+            switch(key){
+                case 'up10':
+                    msg = '10分▲';
+                    break;
+                case 'under10':
+                    msg = '10分▼';
+                    break;
+                case 'new':
+                    msg = '新規';
+                    break;
+                case 'format':
+                    msg = '既定';
+                    break;
+                default :
+                    null;
+                }
+            
+            var $label = $('<label>').text(msg).addClass('radio');
+            $col2.appendTo($container);
+            $label.appendTo($col2);
+            $telOption = $('<input type="radio">').val(key).attr('name', name);
+            $label.prepend($telOption)
         });
     }
     $col3.append($input).append('件');
     $col4.append($netPrice).append('円');
     $col5.append($btn);
     $container.append($col3).append($col4).append($col5);
-            }
+    
+}
 
-/*phone call radio change 
- * 10 or less 500 yen (set)
- * 
- * 10 or more 1000 yen (set)
- */
-// $(document).on("change", "input[type=radio][name=length]", function(){
-//     console.log("moved");
-// })
+$(document).on("click", ".radio",function(){
+  var radioVal = $(this).children("input").val();
+  console.log($(".col1").length);
 
-$("input[type=radio][name=length]").on("change", function(){
-    console.log("moved");
-})
+// //    $.each(price, function(key, val){
+// //     if (price.id === key){
+// //       price.id = rowId;
+// //       price.unitPrice = val[1]
+// // //find 
+// //     }
 
+// // teloption object 
+// });
+
+
+});
 /* phone call times
  * set * times 
  *  show on net & total
-//  */ 
+ * e : event
+ * option : string value
+ * obj : obtion object
+//  */
+// var telOptions = {
+//     under10: 500,
+//     up10: 1000
+// };
+
+function setPrice(e, option, obj){
+    var formulaObj;
+    $.each(obj, function(key, val){
+        if (key === option){
+        formulaObj = {
+            id       : e,
+            unitPrice: val,
+            qty      : 1,
+            };
+        }
+    })
+    price.push(formulaObj);
+//    console.log(price);
+
+}

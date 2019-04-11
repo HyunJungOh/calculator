@@ -13,15 +13,14 @@
 
   </head>
   <body>
-      <section class="head">
+      <section class="head center-flex">
           <div class="title-wrapper"><h1 class="title">精算ツール</h1></div>
           <button id="btn" class="start-btn" type="button" name="button">スタート</button>
     </section>
       <section>
           <div class="list">
               
-                         
-            </div>
+          </div>
       </section>
       <section>
           <div class="total">
@@ -31,5 +30,11 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script type="text/javascript" src="./sample.js"></script>
+  <script type="text/javascript">
+    $().ready(function(){
+      //set initial Price
+      $(".total > h1").text(totalPrice + "　円");
+    })
+  </script>
 
 </html>
