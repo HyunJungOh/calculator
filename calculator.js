@@ -13,8 +13,10 @@ var mailOptions = {
     new     : 10,
     format  : 250
 };
-
-
+var dealOptions = {
+    each    : 20000
+}
+var price = [];
 var totalPrice = 0;
 //add first list item
 $("#btn").on("click", function(){
@@ -76,8 +78,8 @@ function makeElement(optionObj, eventPlace, name){
     var $col3     = $('<div>').addClass('col3');
     var $col4     = $('<div>').addClass('col4');
     var $col5     = $('<div>').addClass('col5');
-
-    var $input    = $("<input type='text'>").addClass("num").attr('placeholder','件数');
+    var $input    = $("<input type='text'>").addClass("num")
+                    .attr('placeholder','件数');            
     var $netPrice = $("<span>").addClass("net-price");
     var $buttons  = $("<span>").addClass("buttons");
     var $addBtn   = $("<button>").addClass("plus-btn"); 
@@ -129,32 +131,27 @@ function makeElement(optionObj, eventPlace, name){
 }
 
 $(document).on("click", ".radio",function(){
-  var radioVal = $(this).children("input").val();
-  console.log($(".col1").length);
-
-// //    $.each(price, function(key, val){
-// //     if (price.id === key){
-// //       price.id = rowId;
-// //       price.unitPrice = val[1]
-// // //find 
-// //     }
-
-// // teloption object 
-// });
-
-
+    var radioVal = $(this).children("input").val();
+    var rowNum   = $(this).children("input").attr("name").slice(-1);
+    var setOption;
+    if (radioVal === 'under10' || radioVal === 'up10'){
+        setOption = telOptions;
+    } else if (radioVal === 'new' || radioVal === 'format'){
+        setOption = mailOptions;
+    } 
+    setPrice(rowNum, radioVal, setOption);
 });
-/* phone call times
+
+
+
+
+/* 
  * set * times 
  *  show on net & total
  * e : event
  * option : string value
  * obj : obtion object
 //  */
-// var telOptions = {
-//     under10: 500,
-//     up10: 1000
-// };
 
 function setPrice(e, option, obj){
     var formulaObj;
@@ -168,6 +165,6 @@ function setPrice(e, option, obj){
         }
     })
     price.push(formulaObj);
-//    console.log(price);
+    console.log(price);
 
 }
