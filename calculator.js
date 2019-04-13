@@ -18,6 +18,7 @@ var dealOptions = {
 }
 var price = [];
 var totalPrice = 0;
+
 //add first list item
 $("#btn").on("click", function(){
     $(this).attr("disabled", true);
@@ -36,6 +37,7 @@ $(document).on("click", ".delete-btn",function(){
 var nameIdCnt = 0;
 var name;
 var cnt;
+
 //add select options
 function makeSelect(){
     var $item   = $('<div>').addClass('item')
@@ -67,6 +69,8 @@ $(document).on("change", ".category",function(){
         } else if (selectedOption !== 'none' && selectedOption === 'deal'){
         name = 'deal_num' + cnt; 
         makeElement('',appendDiv, 'num');
+        //set the price at this stage only if "deal" is selected
+        setPrice(cnt, 'each',  dealOptions);
         }
     })
 
@@ -79,7 +83,8 @@ function makeElement(optionObj, eventPlace, name){
     var $col4     = $('<div>').addClass('col4');
     var $col5     = $('<div>').addClass('col5');
     var $input    = $("<input type='text'>").addClass("num")
-                    .attr('placeholder','件数');            
+                    .attr("placeholder", "件数")
+      
     var $netPrice = $("<span>").addClass("net-price");
     var $buttons  = $("<span>").addClass("buttons");
     var $addBtn   = $("<button>").addClass("plus-btn"); 
@@ -119,7 +124,9 @@ function makeElement(optionObj, eventPlace, name){
             var $label = $('<label>').text(msg).addClass('radio');
             $col2.appendTo($container);
             $label.appendTo($col2);
-            $telOption = $('<input type="radio">').val(key).attr('name', name);
+            $telOption = $('<input type="radio">')
+                         .val(key)
+                         .attr('name', name);
             $label.prepend($telOption)
         });
     }
@@ -138,7 +145,17 @@ $(document).on("click", ".radio",function(){
         setOption = telOptions;
     } else if (radioVal === 'new' || radioVal === 'format'){
         setOption = mailOptions;
-    } 
+        // change the input text
+        var placeholder = (radioVal === 'new') ? "文字数" : "件数" ;
+        $(".num").attr("placeholder", placeholder);
+        if (radioVal === 'new'){
+        $(".col3").contents()[1].textContent = "字";
+        } else{
+        $(".col3").contents()[1].textContent = "件";
+        }
+        }
+
+ 
     setPrice(rowNum, radioVal, setOption);
 });
 
@@ -158,7 +175,7 @@ function setPrice(e, option, obj){
     $.each(obj, function(key, val){
         if (key === option){
         formulaObj = {
-            id       : e,
+            id       : parseInt(e),
             unitPrice: val,
             qty      : 1,
             };
