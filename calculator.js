@@ -140,6 +140,7 @@ function makeElement(optionObj, eventPlace, name){
 $(document).on("click", ".radio",function(){
     var radioVal = $(this).children("input").val();
     var rowNum   = $(this).children("input").attr("name").slice(-1);
+    var targetPlaceholder = $(this).parents().next(".col3");
     var setOption;
     if (radioVal === 'under10' || radioVal === 'up10'){
         setOption = telOptions;
@@ -147,11 +148,11 @@ $(document).on("click", ".radio",function(){
         setOption = mailOptions;
         // change the input text
         var placeholder = (radioVal === 'new') ? "文字数" : "件数" ;
-        $(".num").attr("placeholder", placeholder);
+        targetPlaceholder.children(".num").attr("placeholder", placeholder);
         if (radioVal === 'new'){
-        $(".col3").contents()[1].textContent = "字";
+            targetPlaceholder.contents()[1].textContent = "字";
         } else{
-        $(".col3").contents()[1].textContent = "件";
+            targetPlaceholder.contents()[1].textContent = "件";
         }
         }
 
