@@ -77,14 +77,15 @@ $(document).on("change", ".category",function(){
 
 
 function makeElement(optionObj, eventPlace, name){
+    var cnt       = $(".col1").length;
+
     var $container= $('<div>').addClass('container');
     var $col2     = $('<div>').addClass('col2');
     var $col3     = $('<div>').addClass('col3');
     var $col4     = $('<div>').addClass('col4');
     var $col5     = $('<div>').addClass('col5');
     var $input    = $("<input type='text'>").addClass("num")
-                    .attr("placeholder", "件数")
-      
+                    .attr("placeholder", "件数").data("id", cnt);
     var $netPrice = $("<span>").addClass("net-price");
     var $buttons  = $("<span>").addClass("buttons");
     var $addBtn   = $("<button>").addClass("plus-btn"); 
@@ -134,14 +135,16 @@ function makeElement(optionObj, eventPlace, name){
     $col4.append($netPrice).append('円');
     $col5.append($btn);
     $container.append($col3).append($col4).append($col5);
-    
+
 }
 
+//change text upon tel/mail options
 $(document).on("click", ".radio",function(){
     var radioVal = $(this).children("input").val();
     var rowNum   = $(this).children("input").attr("name").slice(-1);
     var targetPlaceholder = $(this).parents().next(".col3");
     var setOption;
+    
     if (radioVal === 'under10' || radioVal === 'up10'){
         setOption = telOptions;
     } else if (radioVal === 'new' || radioVal === 'format'){
@@ -156,27 +159,23 @@ $(document).on("click", ".radio",function(){
         }
         }
 
- 
     setPrice(rowNum, radioVal, setOption);
 });
 
-
-
-
 /* 
- * set * times 
+ * @function setPrice 
  *  show on net & total
  * e : event
  * option : string value
  * obj : obtion object
 //  */
-
-function setPrice(e, option, obj){
-    var formulaObj;
+function setPrice(count, option, obj){
+    
+    var formulaObj
     $.each(obj, function(key, val){
         if (key === option){
         formulaObj = {
-            id       : parseInt(e),
+            id       : parseInt(count),
             unitPrice: val,
             qty      : 1,
             };
@@ -186,3 +185,15 @@ function setPrice(e, option, obj){
     console.log(price);
 
 }
+
+
+$(document).on("keyup", ".num", function(){
+    var targetId = $(this).data("id")
+    var targetQty = $(this).val();
+    console.log($(this).val());
+    console.log($(this).data("id"))  
+    price[targetId-1].id = targetId;
+    price[targetId-1].qty = targetQty;
+
+
+})
