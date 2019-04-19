@@ -139,11 +139,12 @@ function makeElement(optionObj, eventPlace, name){
 }
 
 //change text upon tel/mail options
-$(document).on("click", ".radio",function(){
-    var radioVal = $(this).children("input").val();
-    var rowNum   = $(this).children("input").attr("name").slice(-1);
+$(document).on("click", ".radio input",function(){
+    var radioVal = $(this).val();
+    var rowNum   = $(this).attr("name").slice(-1);
     var targetPlaceholder = $(this).parents().next(".col3");
     var setOption;
+//    console.log(rowNum);
     
     if (radioVal === 'under10' || radioVal === 'up10'){
         setOption = telOptions;
@@ -190,10 +191,9 @@ function setPrice(count, option, obj){
 $(document).on("keyup", ".num", function(){
     var targetId = $(this).data("id")
     var targetQty = $(this).val();
-    console.log($(this).val());
-    console.log($(this).data("id"))  
     price[targetId-1].id = targetId;
     price[targetId-1].qty = targetQty;
 
+console.log(price)
 
 })
