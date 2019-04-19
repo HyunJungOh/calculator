@@ -29,9 +29,15 @@ $(document).on("click", ".plus-btn",function(){
     makeSelect();
     });
 // delete list item
-$(document).on("click", ".delete-btn",function(){
-    $(this).parents("div .item").remove();
-    });
+// $(document).on("click", ".delete-btn",function(){
+//     var deleteId = $(this).data("row");
+// console.log(deleteId);
+//     if (price[deleteId-1]){
+
+//     }
+//     $(this).parents("div .item").remove();
+
+// });
 
 
 var nameIdCnt = 0;
@@ -86,10 +92,10 @@ function makeElement(optionObj, eventPlace, name){
     var $col5     = $('<div>').addClass('col5');
     var $input    = $("<input type='text'>").addClass("num")
                     .attr("placeholder", "件数").data("id", cnt);
-    var $netPrice = $("<span>").addClass("net-price");
+    var $netPrice = $("<span>").addClass("net-price").addClass("row"+cnt);
     var $buttons  = $("<span>").addClass("buttons");
     var $addBtn   = $("<button>").addClass("plus-btn"); 
-    var $deleteBtn= $("<button>").addClass("delete-btn");
+    var $deleteBtn= $("<button>").addClass("delete-btn").data("row", cnt);
     var $btn      = $buttons.append($addBtn).append($deleteBtn);
 
     if (eventPlace.find('input[type=text]').attr('class')){
@@ -176,8 +182,8 @@ function setPrice(count, option, obj){
         if (key === option){
         formulaObj = {
             id       : parseInt(count),
-            unitPrice: val,
-            qty      : 1,
+            unitPrice: parseInt(val),
+            qty      : 1
             };
         }
     })
@@ -187,17 +193,24 @@ function setPrice(count, option, obj){
     } else {
       price.push(formulaObj);
     }
-    console.log(price);
-
 }
 
 
 $(document).on("keyup", ".num", function(){
     var targetId = $(this).data("id");
-    var targetQty = $(this).val();
+    var targetQty = parseInt($(this).val());
     price[targetId-1].id = targetId;
     price[targetId-1].qty = targetQty;
-
-console.log(price)
-
+    //show net price
+    showNetPrice();
 })
+
+function showNetPrice(){
+    price.map(function(val){
+        var net = val.unitPrice * val.qty;
+        val.netPrice = net;
+        $(".row"+val.id).html(val.netPrice);
+    });
+    
+}
+
