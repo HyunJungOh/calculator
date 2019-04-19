@@ -40,16 +40,16 @@ var cnt;
 
 //add select options
 function makeSelect(){
-    var $item   = $('<div>').addClass('item')
+    var $item   = $('<div>').addClass('item');
     var $col1 = $('<div>').addClass('col1');
-    $select = $('<select>').addClass("category")
+    $select = $('<select>').addClass("category");
 
     $(".list").append($item);
     $item.append($col1);
     $col1.append($select);
     $.each(options, function(key, val){
-        $option = $('<option>').val(key).text(val)
-        $select.append($option)
+        $option = $('<option>').val(key).text(val);
+        $select.append($option);
     })
     
 }
@@ -128,7 +128,7 @@ function makeElement(optionObj, eventPlace, name){
             $telOption = $('<input type="radio">')
                          .val(key)
                          .attr('name', name);
-            $label.prepend($telOption)
+            $label.prepend($telOption);
         });
     }
     $col3.append($input).append('件');
@@ -144,7 +144,6 @@ $(document).on("click", ".radio input",function(){
     var rowNum   = $(this).attr("name").slice(-1);
     var targetPlaceholder = $(this).parents().next(".col3");
     var setOption;
-//    console.log(rowNum);
     
     if (radioVal === 'under10' || radioVal === 'up10'){
         setOption = telOptions;
@@ -171,7 +170,7 @@ $(document).on("click", ".radio input",function(){
  * obj : obtion object
 //  */
 function setPrice(count, option, obj){
-    
+
     var formulaObj
     $.each(obj, function(key, val){
         if (key === option){
@@ -182,14 +181,19 @@ function setPrice(count, option, obj){
             };
         }
     })
-    price.push(formulaObj);
+    //check if price is already set
+    if (price[count-1]){
+        price[count-1] = formulaObj;
+    } else {
+      price.push(formulaObj);
+    }
     console.log(price);
 
 }
 
 
 $(document).on("keyup", ".num", function(){
-    var targetId = $(this).data("id")
+    var targetId = $(this).data("id");
     var targetQty = $(this).val();
     price[targetId-1].id = targetId;
     price[targetId-1].qty = targetQty;
