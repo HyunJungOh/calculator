@@ -211,6 +211,10 @@ function showNetPrice(){
         val.netPrice = net;
         $(".row"+val.id).html(val.netPrice);
     });
-    
+    totalPrice = price.reduce(function(prev, cur){
+        return prev + cur.netPrice;
+
+    },0);
+    $(".total > h1").text(totalPrice + "　円");
 }
 
