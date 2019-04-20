@@ -218,3 +218,9 @@ function showNetPrice(){
     $(".total > h1").text(totalPrice + "　円");
 }
 
+
+//to do
+// style for net price span
+// delete button 
+// detect length and reuse start button
+// error message 

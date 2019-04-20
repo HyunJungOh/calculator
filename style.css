@@ -102,10 +102,13 @@
 }
 
 .net-price{
-    display         : inline-block;
+    display         : flex;
+    justify-content : flex-end;
+    align-items     : center;
     width           : 10em;
     height          : 2em;
     background-color: #dadfe1;
+    font-weight     : bold;
 }
 .plus-btn{
     border          : 2px solid  rgb(34, 167, 240);
